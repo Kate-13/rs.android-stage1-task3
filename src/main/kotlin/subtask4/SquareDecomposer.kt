@@ -9,20 +9,51 @@ class SquareDecomposer {
 
             val numsqr = Math.pow(number.toDouble(), 2.0)
             val resarr: ArrayList<Int>? = arrayListOf()
-            val arr = arrayListOf<Double>()
-            var nextel = number - 1
-            resarr?.add(nextel)
-            var restsum = numsqr - Math.pow(nextel.toDouble(), 2.0)
-            if (number > 0) {
 
-                while (restsum > 0) {
-                    var sqrtel = Math.sqrt(restsum)
-                    var next = Math.floor(sqrtel)
-                    resarr?.add(next.toInt())
-                    resarr?.sort()
-                    println(resarr)
-                    restsum = restsum - Math.pow(next, 2.0)
+            if (number > 2) {
+                var number2 = number - 1
+                var restsum = numsqr - Math.pow(number2.toDouble(), 2.0)
+                var sqrtel0 = Math.sqrt(restsum)
+                var next0 = Math.floor(sqrtel0)
 
+                for (nextel in next0.toInt() downTo 1) {
+
+                    if( Math.pow(nextel.toDouble(), 2.0) == restsum ) {
+                        resarr?.add(nextel)
+                        resarr?.add(number2)
+                        return resarr?.toTypedArray()
+                    }
+
+                    for (nextel2 in nextel.toInt()-1 downTo 1) {
+                        var v2 = Math.pow(nextel.toDouble(), 2.0) + Math.pow(nextel2.toDouble(), 2.0)
+                        if( v2 == restsum ) {
+                            resarr?.add(nextel2)
+                            resarr?.add(nextel)
+                            resarr?.add(number2)
+                            return resarr?.toTypedArray()
+                        }
+                        for (nextel3 in nextel2.toInt()-1 downTo 1) {
+                            var v3 = Math.pow(nextel.toDouble(), 2.0) + Math.pow(nextel2.toDouble(), 2.0) + Math.pow(nextel3.toDouble(), 2.0)
+                            if( v3 == restsum ) {
+                                resarr?.add(nextel3)
+                                resarr?.add(nextel2)
+                                resarr?.add(nextel)
+                                resarr?.add(number2)
+                                return resarr?.toTypedArray()
+                            }
+                            for(nextel4 in nextel3.toInt()-1 downTo 1)  {
+                                var v4 = Math.pow(nextel.toDouble(), 2.0) + Math.pow(nextel2.toDouble(), 2.0) + Math.pow(nextel3.toDouble(), 2.0) + Math.pow(nextel4.toDouble(), 2.0)
+                                if( v4 == restsum ) {
+                                    resarr?.add(nextel4)
+                                    resarr?.add(nextel3)
+                                    resarr?.add(nextel2)
+                                    resarr?.add(nextel)
+                                    resarr?.add(number2)
+                                    return resarr?.toTypedArray()
+                                }
+                            }
+                        }
+                    }
                 }
             } else return null
             resarr?.forEachIndexed { i , el ->
